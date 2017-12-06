@@ -4,32 +4,37 @@ import java.io._
 
 object CityWeather {
 def main(args: Array[String]) {
-  var finalstr:String=""
+  var outrec:String=""
+  //Input File Path
   val bufferedSource=io.Source.fromFile("/home/datadotz/topology.txt")
+  
+  //Output File
   val writer = new PrintWriter(new File("/home/datadotz/topoutscala.txt" ))
   
+  //Reading i/p file
   for(line <- bufferedSource.getLines)
   {
     val cols=line.split(" ").map {_.trim()}
+    
     for(i<-0 to 7) {
       if (i==2)
-        finalstr = finalstr + cols(i) + "T"
+        outrec = outrec + cols(i) + "T"
       else if(i==3)
-        finalstr = finalstr + cols(i) + "z"+"|"
+        outrec = outrec + cols(i) + "z"+"|"
       else
-      finalstr = finalstr + cols(i) + "|"
-      
+      outrec = outrec + cols(i) + "|"      
     }
-    println(finalstr)
     
-    writer.write(finalstr)
+    //Writing records into o/p file and Console
+    println(outrec)    
+    writer.write(outrec)
     writer.write("\n")
-    finalstr=""
-    //println(s"${cols(0)}|${cols(1)}|${cols(2)} ${cols(3)}|${cols(4)}|${cols(5)}${cols(6)}|${cols(7)}")
-      
-  } 
-  writer.close()
+    outrec=""
+        
+  } //End of i/p file read
+
+//Closing files
+writer.close()
 bufferedSource.close()
 }
-
 }
